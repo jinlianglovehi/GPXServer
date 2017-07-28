@@ -221,11 +221,8 @@ public class BeanGPXBuilder {
                 continue;
             }
             try {
-                // TODO: 17-7-28 add  diff number
                 long diffLat = Long.parseLong(llSplitStr[0]);
                 long diffLng = Long.parseLong(llSplitStr[1]);
-//                currentLat += (float) diffLat / LAT_LNG_MULTIPLE;
-//                currentLng += (float) diffLng / LAT_LNG_MULTIPLE;
                 currentLat +=  diffLat ;
                 currentLng +=  diffLng ;
                 lats[index] = currentLat;
@@ -307,7 +304,6 @@ public class BeanGPXBuilder {
         if (size != 0) {
             TrackSegment segment = new TrackSegment();
             for (int i = 0; i < size; i++) {
-                // TODO: 17-7-28 add wayPoint
                 Waypoint waypoint = new Waypoint((double) mLat[i]/LAT_LNG_MULTIPLE,(double) mLng[i]/LAT_LNG_MULTIPLE);
                 waypoint.setTime(new Date(mTime[i]));
                 waypoint.setElevation(mAltitude[i]);
