@@ -28,8 +28,8 @@ public class BeanGPXBuilder {
     private static final String TRACK_TYPE_OUTDOOR_RIDING = "OutdoorRiding";
     private static final String TRACK_TYPE_INDOOR_RIDING = "IndoorRiding";
     private long[] mTime;
-    private float[] mLat;
-    private float[] mLng;
+    private long[] mLat;
+    private long[] mLng;
     private float[] mAltitude;
     private int mSize = -1;
     private Logger mLogger = Logger.getLogger("BeanGPXBuilder");
@@ -201,8 +201,8 @@ public class BeanGPXBuilder {
     private boolean parseLatLng(DetailJSONDataBean bean) {
         String latLngStr = bean.mLngLat;
         if (latLngStr.isEmpty()) {
-            mLat = new float[0];
-            mLng = new float[0];
+            mLat = new long[0];
+            mLng = new long[0];
             return true;
         }
         String[] latLngSplitStr = latLngStr.split(";");
@@ -210,10 +210,10 @@ public class BeanGPXBuilder {
         if (size == 0) {
             return false;
         }
-        float[] lats = new float[size];
-        float[] lngs = new float[size];
-        float currentLat = 0;
-        float currentLng = 0;
+        long[] lats = new long[size];
+        long[] lngs = new long[size];
+        long currentLat = 0;
+        long currentLng = 0;
         int index = 0;
         for (String ll : latLngSplitStr) {
             String[] llSplitStr = ll.split(",");
@@ -221,10 +221,13 @@ public class BeanGPXBuilder {
                 continue;
             }
             try {
+                // TODO: 17-7-28 add  diff number
                 long diffLat = Long.parseLong(llSplitStr[0]);
                 long diffLng = Long.parseLong(llSplitStr[1]);
-                currentLat += (float) diffLat / LAT_LNG_MULTIPLE;
-                currentLng += (float) diffLng / LAT_LNG_MULTIPLE;
+//                currentLat += (float) diffLat / LAT_LNG_MULTIPLE;
+//                currentLng += (float) diffLng / LAT_LNG_MULTIPLE;
+                currentLat +=  diffLat ;
+                currentLng +=  diffLng ;
                 lats[index] = currentLat;
                 lngs[index] = currentLng;
                 index++;
@@ -304,7 +307,8 @@ public class BeanGPXBuilder {
         if (size != 0) {
             TrackSegment segment = new TrackSegment();
             for (int i = 0; i < size; i++) {
-                Waypoint waypoint = new Waypoint(mLat[i], mLng[i]);
+                // TODO: 17-7-28 add wayPoint
+                Waypoint waypoint = new Waypoint(mLat[i]/LAT_LNG_MULTIPLE, mLng[i]/LAT_LNG_MULTIPLE);
                 waypoint.setTime(new Date(mTime[i]));
                 waypoint.setElevation(mAltitude[i]);
                 if (mHeartRate != null && i < mHeartRate.length && mHeartRate[i] > 0) {
