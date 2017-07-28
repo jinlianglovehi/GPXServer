@@ -308,7 +308,7 @@ public class BeanGPXBuilder {
             TrackSegment segment = new TrackSegment();
             for (int i = 0; i < size; i++) {
                 // TODO: 17-7-28 add wayPoint
-                Waypoint waypoint = new Waypoint(mLat[i]/LAT_LNG_MULTIPLE, mLng[i]/LAT_LNG_MULTIPLE);
+                Waypoint waypoint = new Waypoint((double) mLat[i]/LAT_LNG_MULTIPLE,(double) mLng[i]/LAT_LNG_MULTIPLE);
                 waypoint.setTime(new Date(mTime[i]));
                 waypoint.setElevation(mAltitude[i]);
                 if (mHeartRate != null && i < mHeartRate.length && mHeartRate[i] > 0) {
