@@ -254,7 +254,8 @@ public class BeanGPXBuilder {
             }
             try {
                 altitude = Float.parseFloat(as) / MMS_PER_METER;
-                altitudes[index] = (altitude < 0 ? 0 : altitude);
+                altitudes[index] = (altitude <= -19999 ? 0 : altitude);
+//                altitudes[index] = altitude;
             } catch (NumberFormatException e) {
                 return false;
             }
