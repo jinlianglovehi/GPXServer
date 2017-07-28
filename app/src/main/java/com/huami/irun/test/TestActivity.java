@@ -31,7 +31,7 @@ public class TestActivity extends Activity {
                 Log.i(TAG," run ") ;
                 DetailJSONDataBean detailJSONDataBean  =getDetalDataBean();
                 if(detailJSONDataBean!=null){
-                    writeDataToFile("huhu.gpx",detailJSONDataBean) ;
+                    writeDataToFile("test_modify_before.gpx",detailJSONDataBean) ;
                 }else{
                     Log.i(TAG," detalJsonDataBean is null ");
                 }
